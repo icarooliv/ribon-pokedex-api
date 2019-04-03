@@ -14,7 +14,8 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons/:{id}
   def show
-    render json: @pokemon
+    data = @pokemon.all_children 
+    render json: {data: data[0]}
   end
 
   # POST /pokemons
