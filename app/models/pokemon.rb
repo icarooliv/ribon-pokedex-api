@@ -1,6 +1,13 @@
 class Pokemon < ApplicationRecord
+  ## self relationship
   has_many :evolutions, class_name: "Pokemon", foreign_key: :evolves_from
   belongs_to :ancestor, optional: true, class_name: "Pokemon", foreign_key: :evolves_from
+
+  ##relationship with type
+  has_many :cat_hobbies
+  has_many :hobbies, through: :cat_hobbies
+
+
 
   validates :name, presence: true
   validate :evolves_from_exists

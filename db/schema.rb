@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_02_225857) do
+ActiveRecord::Schema.define(version: 2019_04_03_235910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,5 +24,20 @@ ActiveRecord::Schema.define(version: 2019_04_02_225857) do
     t.index ["evolves_from"], name: "index_pokemons_on_evolves_from"
   end
 
+  create_table "pokemons_types", id: false, force: :cascade do |t|
+    t.bigint "pokemon_id", null: false
+    t.bigint "type_id", null: false
+    t.index ["pokemon_id", "type_id"], name: "index_pokemons_types_on_pokemon_id_and_type_id"
+    t.index ["type_id", "pokemon_id"], name: "index_pokemons_types_on_type_id_and_pokemon_id"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "pokemons", "pokemons", column: "evolves_from"
+  add_foreign_key "pokemons_types", "pokemons"
+  add_foreign_key "pokemons_types", "types"
 end
