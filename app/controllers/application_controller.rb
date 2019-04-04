@@ -7,6 +7,6 @@ class ApplicationController < ActionController::API
         end    
         
         def render_409
-            render json: { error: "Conflict" }, status: :conflict
+            render json: { error: "Conflict, duplicated entry" }, status: :conflict
         end    
 end

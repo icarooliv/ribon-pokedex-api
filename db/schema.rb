@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["evolves_from"], name: "index_pokemons_on_evolves_from"
+    t.index ["name"], name: "index_pokemons_on_name", unique: true
   end
 
   create_table "pokemons_types", id: false, force: :cascade do |t|
