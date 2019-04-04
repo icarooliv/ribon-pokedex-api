@@ -14,8 +14,7 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons/:{id}
   def show
-    root = @pokemon
-    render json: root.to_node.to_json
+      render json:@pokemon , serializer: PokemonDetailedSerializer
   end
 
   # POST /pokemons
