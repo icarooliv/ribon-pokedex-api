@@ -1,5 +1,5 @@
 class PokemonSerializer < ActiveModel::Serializer
-  attributes :name, :profile_url, :types
+  attributes :id, :name, :profile_url, :types
 
   has_many :types
   

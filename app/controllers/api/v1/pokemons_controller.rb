@@ -21,6 +21,11 @@ class Api::V1::PokemonsController < ApplicationController
   def create
     @pokemon = Pokemon.new(pokemon_params)
 
+    if params[:types]
+      types = Type.where(id: params[:types])
+      @pokemon.types << types
+    end
+    
     if @pokemon.save
       render json: @pokemon, status: :created
     else
@@ -30,8 +35,13 @@ class Api::V1::PokemonsController < ApplicationController
 
   # PATCH/PUT /pokemons/1
   def update
+    if params[:types]
+      types = Type.where(id: params[:types])
+      @pokemon.types << types
+    end
+    
     if @pokemon.update(pokemon_params)
-      render json: @pokemon
+      render json: @pokemon 
     else
       render json: {errors: "Unprocessable entity"}, status: :unprocessable_entity
     end
@@ -50,6 +60,6 @@ class Api::V1::PokemonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pokemon_params
-      params.require(:pokemon).permit(:name, :profile_url, :level, :evolves_from, :type_ids)
+      params.require(:pokemon).permit(:name, :profile_url, :level, :evolves_from, :types_ids)
     end
 end

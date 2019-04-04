@@ -27,8 +27,9 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
   create_table "pokemons_types", id: false, force: :cascade do |t|
     t.bigint "pokemon_id", null: false
     t.bigint "type_id", null: false
-    t.index ["pokemon_id", "type_id"], name: "index_pokemons_types_on_pokemon_id_and_type_id"
-    t.index ["type_id", "pokemon_id"], name: "index_pokemons_types_on_type_id_and_pokemon_id"
+    t.index ["pokemon_id", "type_id"], name: "index_pokemons_types_on_pokemon_id_and_type_id", unique: true
+    t.index ["pokemon_id"], name: "index_pokemons_types_on_pokemon_id"
+    t.index ["type_id"], name: "index_pokemons_types_on_type_id"
   end
 
   create_table "types", force: :cascade do |t|
@@ -38,6 +39,6 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
   end
 
   add_foreign_key "pokemons", "pokemons", column: "evolves_from"
-  add_foreign_key "pokemons_types", "pokemons"
-  add_foreign_key "pokemons_types", "types"
+  add_foreign_key "pokemons_types", "pokemons", on_delete: :cascade
+  add_foreign_key "pokemons_types", "types", on_delete: :cascade
 end
