@@ -1,5 +1,5 @@
 class PokemonDetailedSerializer < ActiveModel::Serializer
-  attributes :id, :name, :profile_url, :types, :evolutions
+  attributes :id, :name, :sprite_front_url, :api_url, :types, :evolves_from, :evolutions 
 
   has_many :evolutions 
   has_many :types
@@ -7,6 +7,12 @@ class PokemonDetailedSerializer < ActiveModel::Serializer
   def evolutions
     object.evolutions.map do |evolution|
       ::PokemonDetailedSerializer.new(evolution).attributes
+    end
+  end
+
+  def types
+    object.types.map do |type|
+      ::TypeSerializer.new(type).attributes
     end
   end
 

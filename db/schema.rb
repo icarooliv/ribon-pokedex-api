@@ -17,7 +17,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
 
   create_table "pokemons", force: :cascade do |t|
     t.string "name"
-    t.string "profile_url"
+    t.string "sprite_front_url"
+    t.string "api_url"
     t.bigint "evolves_from"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -37,6 +38,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_types_on_name", unique: true
   end
 
   add_foreign_key "pokemons", "pokemons", column: "evolves_from"

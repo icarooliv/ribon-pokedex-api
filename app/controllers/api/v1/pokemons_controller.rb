@@ -5,7 +5,7 @@ class Api::V1::PokemonsController < ApplicationController
   def index
     if params[:name].present?
       @pokemon = Pokemon.find_by_name!(params[:name])
-      render json: @pokemon
+      render json: @pokemon, serializer: PokemonDetailedSerializer
     else 
       @pokemons = Pokemon.all
     render json: @pokemons
@@ -14,7 +14,7 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons/:{id}
   def show
-      render json:@pokemon , serializer: PokemonDetailedSerializer
+      render json:@pokemon, serializer: PokemonDetailedSerializer
   end
 
   # POST /pokemons
@@ -60,6 +60,6 @@ class Api::V1::PokemonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pokemon_params
-      params.require(:pokemon).permit(:name, :profile_url, :level, :evolves_from, :types_ids)
+      params.require(:pokemon).permit(:name, :sprite_front_url, :api_url, :level, :evolves_from, :types_ids)
     end
 end
