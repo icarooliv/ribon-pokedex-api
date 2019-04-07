@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
     t.index ["name"], name: "index_types_on_name", unique: true
   end
 
-  add_foreign_key "pokemons", "pokemons", column: "evolves_from"
+  add_foreign_key "pokemons", "pokemons", column: "evolves_from", on_delete: :nullify
   add_foreign_key "pokemons_types", "pokemons", on_delete: :cascade
   add_foreign_key "pokemons_types", "types", on_delete: :cascade
 end
