@@ -16,8 +16,8 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
   enable_extension "plpgsql"
 
   create_table "pokemons", force: :cascade do |t|
-    t.string "name"
-    t.string "sprite_front_url"
+    t.string "name", null: false
+    t.string "sprite_front_url", null: false
     t.string "api_url"
     t.bigint "evolves_from"
     t.datetime "created_at", null: false
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
   end
 
   create_table "types", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_types_on_name", unique: true

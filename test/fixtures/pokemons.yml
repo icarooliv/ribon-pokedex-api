@@ -1,11 +1,24 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  profile_url: MyString
-  pokemon: one
+pikachu:
+  name: pikachu
+  sprite_front_url: www.pikachu.com 
 
-two:
-  name: MyString
-  profile_url: MyString
-  pokemon: two
+raichu:
+  name: raichu
+  sprite_front_url: www.raichu.com 
+  ancestor: pikachu
+  types: eletric, normal
+
+charmander:
+  name: charmander
+  sprite_front_url: www.charmander.com 
+
+squirtle: 
+  name: squirtle
+  sprite_front_url: www.squirte.url
+
+bulbasaur: 
+  name: bulbasaur
+  sprite_front_url: www.bulbasaur.url
+  ancestor: pidgeot

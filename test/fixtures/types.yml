@@ -1,7 +1,17 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
+normal:
+  name: normal
 
-two:
-  name: MyString
+water:
+  name: water
+
+fire:
+  name: fire
+
+eletric:
+  name: eletric
+
+grass:
+  name: grass
+  pokemons: venusaur  
