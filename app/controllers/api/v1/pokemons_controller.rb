@@ -16,7 +16,7 @@ class Api::V1::PokemonsController < ApplicationController
   def create
     @pokemon = Pokemon.new(pokemon_params)
 
-    if params[:types]
+    if params[:types].present?
       types = Type.where(id: params[:types])
       @pokemon.types << types
     end
@@ -55,6 +55,6 @@ class Api::V1::PokemonsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def pokemon_params
-      params.require(:pokemon).permit(:name, :sprite_front_url, :api_url, :level, :evolves_from, :types_ids)
+      params.require(:pokemon).permit(:name, :sprite_front_url, :api_url, :evolves_from, :types)
     end
 end
