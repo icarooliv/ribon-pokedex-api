@@ -5,6 +5,9 @@ RSpec.describe 'Pokemons API', type: :request do
   let!(:pokemons) { create_list(:pokemon, 10) }
   let(:pokemon_id) { pokemons.first.id }
 
+  let(:types) {create_list(:type, 2)}
+  let(:type_id) {types.first.id}
+
   # Test suite for GET /pokemons
   describe 'GET /api/v1/pokemons' do
     # make HTTP get request before each example

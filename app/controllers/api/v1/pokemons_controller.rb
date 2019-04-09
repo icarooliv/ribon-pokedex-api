@@ -3,13 +3,8 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons
   def index
-    if params[:name].present?
-      @pokemon = Pokemon.find_by_name!(params[:name])
-      render json: @pokemon, serializer: PokemonDetailedSerializer
-    else 
-      @pokemons = Pokemon.all
+    @pokemons = Pokemon.all
     render json: @pokemons
-    end
   end
 
   # GET /pokemons/:{id}
