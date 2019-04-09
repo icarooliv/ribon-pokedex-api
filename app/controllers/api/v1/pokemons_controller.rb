@@ -31,8 +31,9 @@ class Api::V1::PokemonsController < ApplicationController
   # PATCH/PUT /pokemons/1
   def update
     if params[:types]
-      types = Type.where(id: params[:types])
-      @pokemon.types << types
+      updatedTypes = Type.where(id: params[:types])
+      @pokemon.types.delete_all
+      @pokemon.types << updatedTypes
     end
     
     if @pokemon.update(pokemon_params)
