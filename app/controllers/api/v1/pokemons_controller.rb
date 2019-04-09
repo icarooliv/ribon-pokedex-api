@@ -14,7 +14,7 @@ class Api::V1::PokemonsController < ApplicationController
 
   # GET /pokemons/:{id}
   def show
-      render json:@pokemon, serializer: PokemonDetailedSerializer
+      render json: @pokemon, serializer: PokemonDetailedSerializer
   end
 
   # POST /pokemons

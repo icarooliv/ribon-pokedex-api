@@ -1,7 +1,6 @@
 FactoryBot.define do
-    factory :pokemon do
+    factory :type do
         name { Faker::Games::Pokemon.unique.name }
-        sprite_front_url { Faker::Lorem.word }
     end
 end
   
