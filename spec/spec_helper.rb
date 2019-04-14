@@ -18,6 +18,10 @@ require 'simplecov'
 SimpleCov.start
 
 RSpec.configure do |config|
+  config.before(:all) do
+    Rails.cache.clear
+  end
+  
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -97,4 +101,5 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
 end

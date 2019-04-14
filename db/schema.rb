@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 2019_04_03_235910) do
 
   create_table "pokemons", force: :cascade do |t|
     t.string "name", null: false
-    t.string "sprite_front_url", null: false
+    t.string "sprite_front_url"
     t.string "api_url"
     t.bigint "evolves_from"
     t.datetime "created_at", null: false

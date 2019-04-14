@@ -54,12 +54,13 @@ RSpec.describe 'Pokemons API', type: :request do
 
     describe 'POST /api/v1/pokemons' do
       # valid payload
-      let(:valid_attributes) { {name: 'Agumon', sprite_front_url: 'www.digimonsdigitais.com'} }
+      let(:valid_attributes) { {name: 'Agumon', sprite_front_url: 'www.digimonsdigitais.com', evolves_from: pokemons[3].id, types: type_id} }
   
       context 'when the request is valid' do
         before { post '/api/v1/pokemons', params: valid_attributes, as: :json }
         
         it 'creates a pokemon' do
+          puts valid_attributes
           expect(json['name']).to eq('Agumon')
         end
   
@@ -69,21 +70,52 @@ RSpec.describe 'Pokemons API', type: :request do
       end
   
       context 'when the request is invalid' do
-        before { post '/api/v1/pokemons', params: { name: ''  }, as: :json }
-  
+        let(:invalid_attributes) {{ name: 'Agumon2', evolves_from: 123456}}
+        before { post '/api/v1/pokemons', params: invalid_attributes, as: :json }
+
+        expected = {
+          "errors"=> {
+              "evolves_from"=> [
+                  "A valid evolves_from is needed."
+              ]
+          }
+        }
+
+        it 'return error when evolves_from is invalid' do
+          expect(response.parsed_body).to eq(expected)
+        end
+
         it 'returns status code 422' do
           expect(response).to have_http_status(422)
         end
-  
-        it 'returns a validation failure message' do
-          expect(response.body)
-            .to match(/Unprocessable entity/)
+      end
+
+      context 'when the request is a duplicate entry' do
+        let(:invalid_attributes) {{ name: pokemons.first.name}}
+        before { post '/api/v1/pokemons', params: invalid_attributes, as: :json }
+
+        expected ={"errors" => {"error"=>"Duplicated unique value"}}
+
+        it 'return error when has a duplcicate entry' do
+          expect(response.parsed_body).to eq(expected)
         end
       end
+
+      # context 'when any request is invalid' do 
+      #   let(:invalid_attributes) { }
+      #   before { post '/api/v1/pokemons', params: invalid_attributes, as: :json }
+        
+      #   expected = {"error"=> "Unprocessable entity"}
+
+      #   it 'returns a default validation failure message' do  
+      #     expect(response.parsed_body).to eq(expected)
+      #   end
+      # end
+
     end
 
     describe 'PUT /api/v1/pokemons/:id' do
-      let(:valid_attributes) { { name: 'Pokaxo' } }
+      let(:valid_attributes) { {name: 'Pokaxo', sprite_front_url: 'www.digimonsdigitais.com', evolves_from: pokemons[3].id, types: type_id} }
   
       context 'when the record exists' do
         before { put "/api/v1/pokemons/#{pokemon_id}", params: valid_attributes, as: :json }
@@ -94,6 +126,19 @@ RSpec.describe 'Pokemons API', type: :request do
   
         it 'returns status code 200' do
           expect(response).to have_http_status(200)
+        end
+      end
+    
+      context 'when any request is invalid' do 
+        let(:invalid_attributes) { }
+        before { patch "/api/v1/pokemons/#{pokemon_id}", params: invalid_attributes, as: :json }
+        
+        expected = {"errors" => {"error"=>"param is missing or the value is empty: pokemon"}}
+
+        it 'returns a default validation failure message' do
+          puts response.parsed_body  
+          puts expected
+          expect(response.parsed_body).to eq(expected)
         end
       end
     end

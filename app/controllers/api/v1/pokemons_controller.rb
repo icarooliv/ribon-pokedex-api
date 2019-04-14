@@ -24,7 +24,7 @@ class Api::V1::PokemonsController < ApplicationController
     if @pokemon.save
       render json: @pokemon, status: :created
     else
-      render json: {errors: "Unprocessable entity"}, status: :unprocessable_entity
+      render json: { :errors => @pokemon.errors }, status: :unprocessable_entity
     end
   end
 
@@ -39,7 +39,7 @@ class Api::V1::PokemonsController < ApplicationController
     if @pokemon.update(pokemon_params)
       render json: @pokemon 
     else
-      render json: {errors: "Unprocessable entity"}, status: :unprocessable_entity
+      render json: { :errors => @pokemon.errors }, status: :unprocessable_entity
     end
   end
 

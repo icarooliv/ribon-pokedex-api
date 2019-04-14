@@ -7,7 +7,7 @@ class Pokemon < ApplicationRecord
   has_and_belongs_to_many :types
 
   validates :name, presence: true
-  validates :sprite_front_url, presence: true
+  # validates :sprite_front_url, presence: true
   validate :evolves_from_exists
 
   def evolves_from_exists
