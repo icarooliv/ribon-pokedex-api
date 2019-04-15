@@ -33,13 +33,9 @@ puts 'Populating pokemons_types and additional data'
 # populates pokemon_types
 pokemons_names.each do |name|
     endpoint = ('pokemon/' + name)
-    
     body = request(endpoint)
     
-    puts(body["sprites"]["front_default"]);
-
     pokemon = Pokemon.where(name: name).first
-    puts(pokemon)
     pokemon.sprite_front_url = body["sprites"]["front_default"]
     pokemon.api_url = @base_url + endpoint
     
